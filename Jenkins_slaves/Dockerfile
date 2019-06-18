@@ -1,12 +1,13 @@
-FROM ubuntu:16.04
- 
-# Install Docker CLI in the agent
-RUN apt-get update && apt-get install -y apt-transport-https ca-certificates
-RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-RUN echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable" > /etc/apt/sources.list.d/docker.list
-RUN apt-get update && apt-get install -y docker-ce --allow-unauthenticated
- 
-RUN apt-get update && apt-get install -y openjdk-8-jre curl python python-pip git
+FROM jenkins/ssh-slave
+
+# Install selected extensions and other stuff
+RUN apt-get update \
+    && apt-get -y --no-install-recommends install \
+    php7.0-cli \
+    php-xdebug \ 
+    composer \
+    phpunit \
+    && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 RUN easy_install jenkins-webapi
  
 # Get docker-compose in the agent container
@@ -14,8 +15,6 @@ RUN curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-co
 RUN mkdir -p /home/jenkins
 RUN mkdir -p /var/lib/jenkins
  
-# Start-up script to attach the slave to the master
-ADD slave.py /var/lib/jenkins/slave.py
  
 WORKDIR /home/jenkins
  
@@ -29,5 +28,4 @@ ENV SLAVE_EXECUTORS "1"
 ENV SLAVE_LABELS "docker"
 ENV SLAVE_WORING_DIR ""
 ENV CLEAN_WORKING_DIR "true"
- 
-CMD [ "python", "-u", "/var/lib/jenkins/slave.py" ]
+
