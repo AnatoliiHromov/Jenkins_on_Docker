@@ -8,7 +8,6 @@ RUN apt-get update \
     composer \
     phpunit \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
-RUN easy_install jenkins-webapi
  
 
 WORKDIR /home/jenkins
