@@ -3,7 +3,7 @@ FROM jenkins/jenkins:latest
  
 # Installing the plugins we need using the in-built install-plugins.sh script
 RUN /usr/local/bin/install-plugins.sh git matrix-auth workflow-aggregator docker-workflow docker greenballs credentials-binding 
-RUN RUN mkdir -p /var/jenkins_home/workspace/myfolder
+RUN mkdir -p /var/jenkins_home/workspace/myfolder
 
 # Setting up environment variables for Jenkins admin user
 ENV JENKINS_USER admin
