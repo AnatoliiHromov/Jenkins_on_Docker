@@ -12,4 +12,5 @@ ENV JENKINS_PASS admin
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
  
 VOLUME /var/jenkins_home
+USER root
 RUN mkdir -p /var/jenkins_home/myfolder
