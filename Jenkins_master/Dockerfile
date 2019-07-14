@@ -10,7 +10,4 @@ ENV JENKINS_PASS admin
  
 # Skip the initial setup wizard
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
- 
-VOLUME /var/jenkins_home
-USER root
-RUN mkdir -p /var/jenkins_home/myfolder
+Run mkdir -p /var/jenkins_home/myfolder
